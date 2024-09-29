@@ -1,0 +1,19 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+	<bean id="propertiesFile" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="Location" value="src/com/atm/cfgs/datasource.properties"/>
+	</bean>
+<!-- datasource bean  -->
+	<bean id="ds" class=" org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driver}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
+<bean id="daoBean" class="com.atm.persistence.PersistenceLogic" c:datasource-ref="ds"/>
+
+<bean id="factory" class="com.atm.factory.AtmFactory" c:atmInterface-ref="daoBean"/>
+
+
+
+
+</beans>
